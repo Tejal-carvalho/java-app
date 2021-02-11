@@ -64,12 +64,14 @@ public class ContactDetail {
 
 	}
 	public int deleteContact(String fname) throws SQLException {
-	    pstmt = con.prepareStatement("delete from contactdetails where fname=?");
-		pstmt.setString(1, fname);
-		flag_update=pstmt.executeUpdate();
 		pstmt = con.prepareStatement("delete from addresses where emailid=(select emailid from contactdetails where fname=?)");
 		pstmt.setString(1, fname);
 		pstmt.executeUpdate();
+		
+	    pstmt = con.prepareStatement("delete from contactdetails where fname=?");
+		pstmt.setString(1, fname);
+		flag_update=pstmt.executeUpdate();
+		
 		return flag_update;
 	}
 	
